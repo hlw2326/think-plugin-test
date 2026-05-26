@@ -1,0 +1,114 @@
+﻿{extend name="table"}
+
+{block name="button"}
+<!--{if auth("defaults")}-->
+<button class="layui-btn layui-btn-sm layui-btn-primary" data-width="950px" data-modal='{:url("defaults")}?appid={$appid|default=""}' data-title="默认客服回复">默认回复</button>
+<!--{/if}-->
+
+<!--{if auth("add")}-->
+<button class="layui-btn layui-btn-sm layui-btn-primary" data-width="950px" data-modal='{:url("add")}?appid={$appid|default=""}' data-title="添加客服回复规则">添加规则</button>
+<!--{/if}-->
+
+<!--{if auth("state")}-->
+<button class="layui-btn layui-btn-sm layui-btn-primary" data-table-id="RuleTable" data-action='{:url("state")}' data-rule="id#{id};status#0">批量禁用</button>
+<!--{/if}-->
+
+<!--{if auth("remove")}-->
+<button class="layui-btn layui-btn-sm layui-btn-danger" data-table-id="RuleTable" data-action='{:url("remove")}' data-rule="id#{id}">批量删除</button>
+<!--{/if}-->
+{/block}
+
+{block name="content"}
+<div class="layui-tab layui-tab-card think-bg-white">
+    <ul class="layui-tab-title">
+        {if !isset($appid) or $appid eq ''}
+        <li class="layui-this" data-open="{:url('index')}">通用回复</li>
+        {else}
+        <li data-open="{:url('index')}">通用回复</li>
+        {/if}
+        {foreach name='mps' item='mp'}
+        {if isset($appid) and $appid eq $mp.appid}
+        <li class="layui-this" data-open="{:url('index')}?appid={$mp.appid}">{$mp.name|default='未命名'}</li>
+        {else}
+        <li data-open="{:url('index')}?appid={$mp.appid}">{$mp.name|default='未命名'}</li>
+        {/if}
+        {/foreach}
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-bg-gray padding-15 margin-bottom-15">
+            小程序客服消息回调地址：<code>{:request()->domain()}/plugin-test/api.v1.custom/index?appid=小程序AppID</code>
+        </div>
+        {include file='reply/index/index_search'}
+        <table id="RuleTable" data-url="{:request()->url()}" data-target-search="form.form-search"></table>
+    </div>
+</div>
+{/block}
+
+{block name='script'}
+<script>
+    $(function () {
+        $('#RuleTable').layTable({
+            even: true, height: 'full',
+            sort: {field: 'sort desc,id', type: 'asc'},
+            where: {appid: '{$appid|default=""}'},
+            cols: [[
+                {checkbox: true},
+                {field: 'sort', title: '排序', width: 100, align: 'center', sort: true, templet: '#SortInputTpl'},
+                {field: 'appid', title: '小程序 AppID', minWidth: 180},
+                {field: 'keys', title: '匹配内容', minWidth: 140, templet: '#KeysTpl'},
+                {field: 'type', title: '回复类型', align: 'center', minWidth: 100},
+                {field: 'code', title: '在线预览', align: 'center', minWidth: 100, templet: '#PreViewTpl'},
+                {field: 'status', title: '使用状态', align: 'center', minWidth: 110, templet: '#StatusSwitchTpl'},
+                {field: 'create_at', title: '添加时间', align: 'center', minWidth: 170},
+                {toolbar: '#toolbar', title: '操作', align: 'center', fixed: 'right'}
+            ]]
+        });
+
+        layui.form.on('switch(StatusSwitch)', function (obj, data) {
+            data = {id: obj.value, status: obj.elem.checked > 0 ? 1 : 0};
+            $.form.load("{:url('state')}", data, 'post', function (ret) {
+                if (ret.code < 1) $.msg.error(ret.info, 3, function () {
+                    $('#RuleTable').trigger('reload');
+                }); else {
+                    $('#RuleTable').trigger('reload');
+                }
+                return false;
+            }, false);
+        });
+    });
+</script>
+
+<script type="text/html" id="KeysTpl">
+    <span class="layui-badge layui-bg-gray color-text margin-right-5">{{d.match_name}}</span>{{d.keys}}
+</script>
+
+<script type="text/html" id="PreViewTpl">
+    {{# if(d.reply_type==='image'){ }}
+    <a data-phone-view='{:sysuri("wechat/api.view/image")}?content={{d.image_url}}'>预览</a>
+    {{# }else{ }}
+    <a data-phone-view='{:sysuri("wechat/api.view/text")}?content={{d.content}}'>预览</a>
+    {{# } }}
+</script>
+
+<script type="text/html" id="SortInputTpl">
+    <input type="number" min="0" data-blur-number="0" data-action-blur="{:url('sort')}" data-value="id#{{d.id}};sort#{value}" data-loading="false" value="{{d.sort}}" class="layui-input text-center">
+</script>
+
+<script type="text/html" id="StatusSwitchTpl">
+    <!--{if auth("state")}-->
+    <input type="checkbox" value="{{d.id}}" lay-skin="switch" lay-text="已激活|已禁用" lay-filter="StatusSwitch" {{-d.status>0?'checked':''}}>
+    <!--{else}-->
+    {{-d.status ? '<b class="color-green">已激活</b>' : '<b class="color-red">已禁用</b>'}}
+    <!--{/if}-->
+</script>
+
+<script type="text/html" id="toolbar">
+    <!--{if auth("edit")}-->
+    <a class="layui-btn layui-btn-sm" data-width="950px" data-modal="{:url('edit')}?id={{d.id}}" data-title="编辑客服回复规则">编 辑</a>
+    <!--{/if}-->
+    <!--{if auth("remove")}-->
+    <a class="layui-btn layui-btn-sm layui-btn-danger" data-action="{:url('remove')}" data-value="id#{{d.id}}" data-confirm="确定要删除该规则吗？">删 除</a>
+    <!--{/if}-->
+</script>
+{/block}
+

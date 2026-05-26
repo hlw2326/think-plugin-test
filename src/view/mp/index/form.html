@@ -1,0 +1,101 @@
+﻿<form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="AppTable">
+    <div class="layui-card-body padding-left-40">
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">基本信息</b></legend>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>名称</b>Name</span>
+                    <input name="name" value="{$vo.name|default=''}" required vali-name="名称" placeholder="请输入小程序名称" class="layui-input">
+                </div>
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>Logo</b>Logo</span>
+                    <div class="relative block">
+                        <input class="layui-input" data-tips-image data-tips-hover placeholder="请上传小程序 Logo" value="{$vo.logo|default=''}" name="logo">
+                        <a class="input-right-icon layui-icon layui-icon-upload-drag" data-file="btn" data-type="png,jpg,jpeg" data-field="logo"></a>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">微信配置</b></legend>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>AppID</b>微信小程序 AppID</span>
+                    <input name="appid" value="{$vo.appid|default=''}" required vali-name="AppID" placeholder="请输入 AppID" class="layui-input">
+                </div>
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>AppSecret</b>微信小程序密钥</span>
+                    <input name="appsecret" value="{$vo.appsecret|default=''}" required vali-name="AppSecret" placeholder="请输入 AppSecret" class="layui-input" type="password" lay-affix="eye">
+                </div>
+            </div>
+            <div class="layui-row layui-col-space15 margin-top-15">
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>Token</b>消息校验 Token</span>
+                    <input name="token" value="{$vo.token|default=''}" placeholder="请输入 Token" class="layui-input">
+                </div>
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>EncodingAESKey</b>消息加密密钥</span>
+                    <input name="encodingaeskey" value="{$vo.encodingaeskey|default=''}" placeholder="请输入 EncodingAESKey" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-row layui-col-space15 margin-top-15">
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>客服回调地址</b>Customer URL</span>
+                    <div class="relative block test-customer-url" data-template="{$customerUrl|default=''}">
+                        <input class="layui-input layui-bg-gray padding-right-30" readonly data-customer-url placeholder="保存 AppID 后自动生成">
+                        <a data-copy="" data-tips-text="复制回调地址" class="input-right-icon layui-icon layui-icon-release"></a>
+                    </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>客服消息</b>Custom Message</span>
+                    <select name="custom_reply_enabled">
+                        <option value="1" {if !isset($vo.custom_reply_enabled) || $vo.custom_reply_enabled==1}selected{/if}>开启</option>
+                        <option value="0" {if isset($vo.custom_reply_enabled) && $vo.custom_reply_enabled==0}selected{/if}>关闭</option>
+                    </select>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">其他设置</b></legend>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12">
+                    <span class="help-label"><b>VIP 去广告</b>展示型广告屏蔽</span>
+                    <select name="vip_no_ad">
+                        <option value="0" {if empty($vo.vip_no_ad)}selected{/if}>关闭</option>
+                        <option value="1" {if !empty($vo.vip_no_ad)}selected{/if}>开启</option>
+                    </select>
+                </div>
+                <div class="layui-col-xs12">
+                    <span class="help-label"><b>备注</b>Remark</span>
+                    <textarea name="remark" placeholder="请输入备注信息" class="layui-textarea">{$vo.remark|default=''}</textarea>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="hr-line-dashed"></div>
+    {notempty name='vo.id'}<input type="hidden" value="{$vo.id}" name="id">{/notempty}
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type="submit">保存数据</button>
+        <button class="layui-btn layui-btn-danger" type="button" data-close>取消操作</button>
+    </div>
+</form>
+
+<script>
+    $(function () {
+        function syncCustomerUrl() {
+            var $form = $('[data-table-id="AppTable"]');
+            var appid = $form.find('[name="appid"]').val() || '小程序AppID';
+            var $box = $form.find('.test-customer-url');
+            var template = $box.data('template') || '';
+            var url = template.replace('小程序AppID', appid);
+            $box.find('[data-customer-url]').val(url);
+            $box.find('[data-copy]').attr('data-copy', url);
+        }
+
+        $('body').off('input change', '[data-table-id="AppTable"] [name="appid"]').on('input change', '[data-table-id="AppTable"] [name="appid"]', syncCustomerUrl);
+        syncCustomerUrl();
+    });
+</script>
+

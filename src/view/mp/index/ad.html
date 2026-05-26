@@ -1,0 +1,176 @@
+﻿<form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="AppTable">
+    <div class="layui-card-body padding-left-20">
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">广告策略</b></legend>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>全局广告</b>控制所有广告整体开关</span>
+                    <div class="radio-line">
+                        <label class="think-radio">
+                            <input type="radio" name="ad_global_enabled" value="1" lay-ignore {eq name='$vo.ad_global_enabled|default="1"' value='1'}checked{/eq}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="ad_global_enabled" value="0" lay-ignore {eq name='$vo.ad_global_enabled|default="1"' value='0'}checked{/eq}> 关闭
+                        </label>
+                    </div>
+                </div>
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>VIP 去广告</b>会员用户是否屏蔽广告</span>
+                    <div class="radio-line">
+                        <label class="think-radio">
+                            <input type="radio" name="vip_no_ad" value="1" lay-ignore {if !empty($vo.vip_no_ad)}checked{/if}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="vip_no_ad" value="0" lay-ignore {if empty($vo.vip_no_ad)}checked{/if}> 关闭
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">广告 Unit ID</b></legend>
+            <div class="ad-config-list">
+                <div class="ad-config-item">
+                    <div class="ad-config-input">
+                        <span class="help-label"><b>横幅广告</b>banner_unit_id</span>
+                        <input name="banner_unit_id" value="{$vo.banner_unit_id|default=''}" placeholder="请输入广告 Unit ID" class="layui-input">
+                    </div>
+                    <div class="ad-config-switch">
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_banner" value="1" lay-ignore {eq name='$vo.ad_enabled_banner|default="1"' value='1'}checked{/eq}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_banner" value="0" lay-ignore {eq name='$vo.ad_enabled_banner|default="1"' value='0'}checked{/eq}> 关闭
+                        </label>
+                    </div>
+                </div>
+                <div class="ad-config-item">
+                    <div class="ad-config-input">
+                        <span class="help-label"><b>格子广告</b>grid_unit_id</span>
+                        <input name="grid_unit_id" value="{$vo.grid_unit_id|default=''}" placeholder="请输入广告 Unit ID" class="layui-input">
+                    </div>
+                    <div class="ad-config-switch">
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_grid" value="1" lay-ignore {eq name='$vo.ad_enabled_grid|default="1"' value='1'}checked{/eq}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_grid" value="0" lay-ignore {eq name='$vo.ad_enabled_grid|default="1"' value='0'}checked{/eq}> 关闭
+                        </label>
+                    </div>
+                </div>
+                <div class="ad-config-item">
+                    <div class="ad-config-input">
+                        <span class="help-label"><b>原生模板广告</b>custom_unit_id</span>
+                        <input name="custom_unit_id" value="{$vo.custom_unit_id|default=''}" placeholder="请输入广告 Unit ID" class="layui-input">
+                    </div>
+                    <div class="ad-config-switch">
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_custom" value="1" lay-ignore {eq name='$vo.ad_enabled_custom|default="1"' value='1'}checked{/eq}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_custom" value="0" lay-ignore {eq name='$vo.ad_enabled_custom|default="1"' value='0'}checked{/eq}> 关闭
+                        </label>
+                    </div>
+                </div>
+                <div class="ad-config-item">
+                    <div class="ad-config-input">
+                        <span class="help-label"><b>视频贴片广告</b>video_unit_id</span>
+                        <input name="video_unit_id" value="{$vo.video_unit_id|default=''}" placeholder="请输入广告 Unit ID" class="layui-input">
+                    </div>
+                    <div class="ad-config-switch">
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_video" value="1" lay-ignore {eq name='$vo.ad_enabled_video|default="1"' value='1'}checked{/eq}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_video" value="0" lay-ignore {eq name='$vo.ad_enabled_video|default="1"' value='0'}checked{/eq}> 关闭
+                        </label>
+                    </div>
+                </div>
+                <div class="ad-config-item">
+                    <div class="ad-config-input">
+                        <span class="help-label"><b>激励视频广告</b>reward_unit_id</span>
+                        <input name="reward_unit_id" value="{$vo.reward_unit_id|default=''}" placeholder="请输入广告 Unit ID" class="layui-input">
+                    </div>
+                    <div class="ad-config-switch">
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_reward" value="1" lay-ignore {eq name='$vo.ad_enabled_reward|default="1"' value='1'}checked{/eq}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_reward" value="0" lay-ignore {eq name='$vo.ad_enabled_reward|default="1"' value='0'}checked{/eq}> 关闭
+                        </label>
+                    </div>
+                </div>
+                <div class="ad-config-item">
+                    <div class="ad-config-input">
+                        <span class="help-label"><b>插屏广告</b>popup_unit_id</span>
+                        <input name="popup_unit_id" value="{$vo.popup_unit_id|default=''}" placeholder="请输入广告 Unit ID" class="layui-input">
+                    </div>
+                    <div class="ad-config-switch">
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_popup" value="1" lay-ignore {eq name='$vo.ad_enabled_popup|default="1"' value='1'}checked{/eq}> 开启
+                        </label>
+                        <label class="think-radio">
+                            <input type="radio" name="ad_enabled_popup" value="0" lay-ignore {eq name='$vo.ad_enabled_popup|default="1"' value='0'}checked{/eq}> 关闭
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <input type="hidden" value="{$vo.id}" name="id">
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type="submit">保存广告配置</button>
+        <button class="layui-btn layui-btn-danger" type="button" data-close>取消操作</button>
+    </div>
+</form>
+
+<style>
+    .radio-line {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        min-height: 38px;
+    }
+
+    .ad-config-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .ad-config-item {
+        display: flex;
+        align-items: flex-end;
+        gap: 18px;
+    }
+
+    .ad-config-input {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .ad-config-switch {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        min-height: 38px;
+        padding-bottom: 1px;
+        white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+        .ad-config-item {
+            align-items: stretch;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .ad-config-switch {
+            min-height: auto;
+            padding-bottom: 0;
+        }
+    }
+</style>
+

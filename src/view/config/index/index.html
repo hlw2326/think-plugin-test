@@ -1,0 +1,31 @@
+{extend name="main"}
+
+{block name="content"}
+<div class="layui-tab layui-tab-card">
+    {include file='config/index/tabs'}
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <form action="{:url('index')}" class="layui-form" data-auto="true" method="post">
+                <div class="layui-card-body">
+                    <div class="layui-row layui-col-space15">
+                        <div class="layui-col-xs12">
+                            <fieldset class="layui-bg-gray">
+                                <legend><b class="layui-badge think-bg-blue">帮助配置</b></legend>
+                                <label class="block relative margin-bottom-15">
+                                    <span class="help-label"><b>使用步骤</b>HelpSteps</span>
+                                    <textarea name="help_steps" class="layui-textarea" rows="5" placeholder="每行一个步骤">{$base.help_steps|default=''}</textarea>
+                                    <span class="help-block">每行一条，小程序帮助页会按换行拆分显示。</span>
+                                </label>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+                <div class="layui-form-item text-center">
+                    <button class="layui-btn" type="submit">保存基础配置</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{/block}

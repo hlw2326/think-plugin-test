@@ -1,0 +1,15 @@
+﻿<form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="AppTable">
+    <div class="layui-card-body padding-left-20">
+        <span class="help-label"><b>pages.json 配置</b>Pages Config</span>
+        <textarea name="pages_config" class="layui-textarea" style="min-height:360px" placeholder="请输入 pages.json 相关配置">{$vo.pages_config|default=''}</textarea>
+        <span class="help-block">用于记录当前小程序页面配置，方便后台集中维护。</span>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <input type="hidden" value="{$vo.id}" name="id">
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type="submit">保存配置</button>
+        <button class="layui-btn layui-btn-danger" type="button" data-close>取消操作</button>
+    </div>
+</form>
+
+

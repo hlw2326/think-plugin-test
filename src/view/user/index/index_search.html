@@ -1,0 +1,59 @@
+<form class="layui-form layui-form-pane form-search" action="{:request()->url()}" onsubmit="return false" method="get" autocomplete="off">
+    <fieldset>
+        <legend>{:lang('条件搜索')}</legend>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-inline">
+                <input name="id" value="{$get.id|default=''}" placeholder="请输入用户ID" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">昵称</label>
+            <div class="layui-input-inline">
+                <input name="nickname" value="{$get.nickname|default=''}" placeholder="请输入昵称" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">手机</label>
+            <div class="layui-input-inline">
+                <input name="phone" value="{$get.phone|default=''}" placeholder="请输入手机" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">OpenID</label>
+            <div class="layui-input-inline">
+                <input name="openid" value="{$get.openid|default=''}" placeholder="请输入OpenID" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <select class="layui-select" name="status" lay-append-to>
+                    <option value="">-- 全部 --</option>
+                    <option value="1" {eq name='$get.status|default=""' value='1'}selected{/eq}>正常</option>
+                    <option value="0" {eq name='$get.status|default=""' value='0'}selected{/eq}>禁用</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">VIP去广告</label>
+            <div class="layui-input-inline">
+                <select class="layui-select" name="vip_no_ad" lay-append-to>
+                    <option value="">-- 全部 --</option>
+                    <option value="1" {eq name='$get.vip_no_ad|default=""' value='1'}selected{/eq}>开启</option>
+                    <option value="0" {eq name='$get.vip_no_ad|default=""' value='0'}selected{/eq}>关闭</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
+            <button class="layui-btn layui-btn-primary" data-form-search type="submit"><i class="layui-icon">&#xe615;</i> 搜索</button>
+        </div>
+    </fieldset>
+</form>

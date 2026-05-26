@@ -1,0 +1,183 @@
+﻿<style>
+    .test-reply-form {
+        width: 930px;
+        height: 660px;
+        overflow: hidden;
+    }
+
+    .keys-container .layui-card {
+        width: 580px;
+        height: 650px;
+        overflow: hidden;
+    }
+
+    .keys-container .layui-card .layui-card-body {
+        height: 567px;
+        overflow: visible;
+    }
+
+    .keys-container .layui-card .layui-card-body img[data-tips-image] {
+        width: 112px;
+        height: auto;
+    }
+
+    .keys-container .layui-card .layui-card-body .layui-form-label {
+        width: 72px;
+        color: #6c6c6c;
+        font-weight: 700;
+    }
+
+    .keys-container .layui-card .layui-card-body .layui-form-label + .layui-input-block {
+        margin-left: 112px;
+    }
+
+    .test-customer-url {
+        margin-top: 6px;
+    }
+</style>
+
+<div class="nowrap padding-10 test-reply-form">
+    <div class="mobile-preview inline-block">
+        <div class="mobile-header">小程序客服</div>
+        <div class="mobile-body" data-iframe-box></div>
+    </div>
+    <div class="keys-container inline-block absolute margin-left-10 margin-right-15">
+        <form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="RuleTable">
+            <div class="layui-card relative shadow-none">
+                <div class="layui-card-header layui-bg-gray text-center">编辑客服回复规则</div>
+                <div class="layui-card-body">
+                    <div class="layui-form-item margin-top-10">
+                        <label class="layui-form-label">小程序</label>
+                        <div class="layui-input-block">
+                            <select name="appid" lay-filter="ReplyAppid">
+                                <option value="" {if !isset($vo.appid) or $vo.appid eq ''}selected{/if}>通用回复（所有小程序）</option>
+                                {foreach name='mps' item='mp'}
+                                <option value="{$mp.appid}" {if isset($vo.appid) and $vo.appid eq $mp.appid}selected{/if}>{$mp.name|default='未命名'} - {$mp.appid}</option>
+                                {/foreach}
+                            </select>
+                            <div class="relative test-customer-url" data-template="{$customerUrl|default=''}">
+                                <input class="layui-input layui-bg-gray padding-right-30" readonly data-customer-url placeholder="消息回调地址">
+                                <a data-copy="" data-tips-text="复制回调地址" class="input-right-icon layui-icon layui-icon-release"></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label label-required">匹配方式</label>
+                        <div class="layui-input-block">
+                            <div class="layui-input help-checks">
+                                {foreach name='matchTypes' key='k' item='v'}
+                                <label class="think-radio">
+                                    <!--{if (!isset($vo.match_type) and $k eq 'exact') or (isset($vo.match_type) and $vo.match_type eq $k)}-->
+                                    <input type="radio" checked name="match_type" value="{$k}" lay-ignore> {$v}
+                                    <!--{else}-->
+                                    <input type="radio" name="match_type" value="{$k}" lay-ignore> {$v}
+                                    <!--{/if}-->
+                                </label>
+                                {/foreach}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" data-match-keyword>
+                        <label class="layui-form-label">匹配内容</label>
+                        <div class="layui-input-block">
+                            <input placeholder="请输入用户发送的关键词" maxlength="120" name="keyword" class="layui-input" value="{$vo.keyword|default=''}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label label-required">回复类型</label>
+                        <div class="layui-input-block">
+                            <div class="layui-input help-checks">
+                                {foreach name='types' key='k' item='v'}
+                                <label class="think-radio">
+                                    <!--{if (!isset($vo.reply_type) and $k eq 'text') or (isset($vo.reply_type) and $vo.reply_type eq $k)}-->
+                                    <input name="reply_type" checked type="radio" value="{$k}" lay-ignore> {$v}
+                                    <!--{else}-->
+                                    <input name="reply_type" type="radio" value="{$k}" lay-ignore> {$v}
+                                    <!--{/if}-->
+                                </label>
+                                {/foreach}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" data-keys-type="text">
+                        <label class="layui-form-label">回复文字</label>
+                        <div class="layui-input-block">
+                            <textarea name="content" placeholder="请输入客服自动回复文字" maxlength="10000" class="layui-textarea">{$vo.content|raw|default='欢迎咨询，请留下你的问题。'}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item" data-keys-type="image">
+                        <label class="layui-form-label label-required">回复图片</label>
+                        <div class="layui-input-block">
+                            <input class="layui-input layui-bg-gra" readonly data-tips-image data-tips-hover onchange="$(this).nextAll('img').attr('src', this.value || '{$defaultImage}')" value="{$vo.image_url|default=''}" name="image_url" placeholder="请从图片空间选择回复图片">
+                            <a data-file="image" data-type="png,jpg,jpeg,gif" data-field="image_url" class="input-right-icon layui-icon layui-icon-upload-drag"></a>
+                            <p class="help-block">请从图片空间选择客服回复图片，支持 png/jpg/jpeg/gif 格式。</p>
+                            <img data-tips-image src="{$vo.image_url|default=$defaultImage}" alt="img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center absolute full-width" style="bottom:0">
+                <div class="hr-line-dashed margin-bottom-10"></div>
+                {notempty name='vo.id'}<input type="hidden" value="{$vo.id}" name="id">{/notempty}
+                <button class="layui-btn menu-submit">保存数据</button>
+                <button data-close data-confirm="确定要取消编辑吗？" class="layui-btn layui-btn-danger" type="button">取消编辑</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        function syncCustomerUrl(appid) {
+            var $form = $('.test-reply-form form');
+            appid = appid === undefined ? $form.find('[name="appid"]').val() : appid;
+            var $box = $form.find('.test-customer-url');
+            var $target = $box.find('[data-customer-url]');
+            var $copy = $box.find('[data-copy]');
+            var template = $box.data('template') || '';
+            var url = appid ? template.replace('小程序AppID', appid) : template;
+            $target.val(url);
+            $copy.attr('data-copy', url);
+        }
+
+        function showReview(params, location) {
+            location = '{:sysuri("wechat/api.view/_type_")}?'.replace('_type_', params.type) + $.param(params || {});
+            var iframe = '<iframe id="phone-preview" frameborder="0" marginheight="0" marginwidth="0"></iframe>';
+            $('[data-iframe-box]').empty().append($(iframe).attr('src', location));
+        }
+
+        layui.form.on('select(ReplyAppid)', function (data) {
+            syncCustomerUrl(data.value);
+        });
+        $('body').off('change', '.test-reply-form [name="appid"]').on('change', '.test-reply-form [name="appid"]', function () {
+            syncCustomerUrl(this.value);
+        });
+
+        $('body').off('change', '[name="content"]').on('change', '[name="content"]', function () {
+            showReview({type: 'text', content: this.value});
+        }).off('change', '[name="image_url"]').on('change', '[name="image_url"]', function () {
+            showReview({type: 'image', content: this.value});
+        });
+
+        $('body').off('click', 'input[name=reply_type]').on('click', 'input[name=reply_type]', function () {
+            var value = $(this).val(), $form = $(this).parents('form');
+            var $current = $form.find('[data-keys-type="' + value + '"]').removeClass('layui-hide');
+            $form.find('[data-keys-type]').not($current).addClass('layui-hide');
+            return value === 'image' ? $('[name="image_url"]').trigger('change') : $('[name="content"]').trigger('change');
+        });
+
+        $('body').off('click', 'input[name=match_type]').on('click', 'input[name=match_type]', function () {
+            $('[data-match-keyword]').toggleClass('layui-hide', $(this).val() === 'default');
+        });
+
+        $('input[name=reply_type]:checked').trigger('click');
+        $('input[name=match_type]:checked').trigger('click');
+        syncCustomerUrl();
+    });
+</script>
+

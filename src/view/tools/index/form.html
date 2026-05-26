@@ -1,0 +1,45 @@
+﻿<form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="ToolsTable">
+    <div class="layui-card-body padding-left-40">
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">展示信息</b></legend>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>标题</b>Title</span>
+                    <input name="title" value="{$vo.title|default=''}" required vali-name="标题" placeholder="请输入标题" class="layui-input">
+                </div>
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>Logo</b>Logo</span>
+                    <div class="relative block">
+                        <input class="layui-input layui-bg-gray" readonly data-tips-image data-tips-hover placeholder="请选择工具 Logo" value="{$vo.logo|default=''}" name="logo">
+                        <a class="input-right-icon layui-icon layui-icon-upload-drag" data-file="image" data-type="png,jpg,jpeg" data-field="logo"></a>
+                    </div>
+                </div>
+                <div class="layui-col-xs12">
+                    <span class="help-label"><b>描述</b>Description</span>
+                    <input name="desc" value="{$vo.desc|default=''}" placeholder="请输入描述" class="layui-input">
+                </div>
+            </div>
+        </fieldset>
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">跳转配置</b></legend>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>AppID</b>目标小程序 AppID</span>
+                    <input name="appid" value="{$vo.appid|default=''}" placeholder="请输入目标小程序 AppID" class="layui-input">
+                </div>
+                <div class="layui-col-xs12 layui-col-md6">
+                    <span class="help-label"><b>路径</b>Path</span>
+                    <input name="path" value="{$vo.path|default='pages/index/index'}" placeholder="请输入跳转路径" class="layui-input">
+                </div>
+
+            </div>
+        </fieldset>
+    </div>
+    <div class="hr-line-dashed"></div>
+    {notempty name='vo.id'}<input type="hidden" value="{$vo.id}" name="id">{/notempty}
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type="submit">保存数据</button>
+        <button class="layui-btn layui-btn-danger" type="button" data-close>取消操作</button>
+    </div>
+</form>
+

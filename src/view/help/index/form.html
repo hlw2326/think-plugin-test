@@ -1,0 +1,37 @@
+﻿<form action="{:sysuri()}" method="post" data-auto="true" class="layui-form layui-card" data-table-id="HelpTable">
+    <div class="layui-card-body padding-left-40">
+        <fieldset class="layui-bg-gray">
+            <legend><b class="layui-badge think-bg-blue">帮助内容</b></legend>
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-xs12 layui-col-md3">
+                    <span class="help-label"><b>排序</b>Sort</span>
+                    <input name="sort" value="{$vo.sort|default='0'}" class="layui-input" type="number">
+                </div>
+                <div class="layui-col-xs12 layui-col-md3">
+                    <span class="help-label"><b>状态</b>Status</span>
+                    <select name="status" class="layui-select">
+                        <option value="1" {eq name='$vo.status|default="1"' value='1'}selected{/eq}>已启用</option>
+                        <option value="0" {eq name='$vo.status|default="1"' value='0'}selected{/eq}>已禁用</option>
+                    </select>
+                </div>
+                <div class="layui-col-xs12">
+                    <span class="help-label"><b>问题</b>Question</span>
+                    <input name="question" value="{$vo.question|default=''}" required vali-name="问题" placeholder="请输入问题标题" class="layui-input">
+                </div>
+                <div class="layui-col-xs12">
+                    <span class="help-label"><b>答案</b>Answer</span>
+                    <textarea name="answer" placeholder="请输入答案内容" class="layui-textarea">{$vo.answer|default=''}</textarea>
+                    <span class="help-block">支持占位符：{day_parse_count}、{reward_parse_count}，小程序端会按当前配置替换。</span>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="hr-line-dashed"></div>
+    {notempty name='vo.id'}<input type="hidden" value="{$vo.id}" name="id">{/notempty}
+    <input type="hidden" value="faq" name="type">
+    <div class="layui-form-item text-center">
+        <button class="layui-btn" type="submit">保存数据</button>
+        <button class="layui-btn layui-btn-danger" type="button" data-close>取消操作</button>
+    </div>
+</form>
+
