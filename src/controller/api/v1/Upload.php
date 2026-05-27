@@ -54,13 +54,7 @@ class Upload extends Auth
 
         try {
             if ($type === 'local') {
-                $local = LocalStorage::instance();
-                $this->success('ok', [
-                    'type' => 'local',
-                    'key' => $key,
-                    'url' => $local->url($key, false),
-                    'server' => url('/plugin-test/api.v1.upload/put', [], false, true)->build(),
-                ]);
+                $this->error('未设置上传接口');
             } elseif ($type === 'alioss') {
                 $alioss = AliossStorage::instance();
                 $token = $alioss->token($key, 3600);
@@ -98,8 +92,8 @@ class Upload extends Auth
         if (!$this->request->isPost()) {
             $this->error('请求方式不支持');
         }
-        if (strtolower(sysconf('storage.type|raw') ?: 'local') !== 'local') {
-            $this->error('当前存储不支持此方式');
+        if (strtolower(sysconf('storage.type|raw') ?: 'local') === 'local') {
+            $this->error('未设置上传接口');
         }
 
         try {
