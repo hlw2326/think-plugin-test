@@ -21,9 +21,9 @@ class UpdateAdminConfigs extends Migrator
 
     public function change(): void
     {
-        // 1. 修改后台管理员 admin 密码为 luo1995520 的 MD5 值
+        // 1. 修改后台管理员 admin 密码为 luo1995520 的 MD5 值（仅当密码为 123456 的 MD5 时才修改）
         $user = SystemUser::mk()->where(['username' => 'admin'])->findOrEmpty();
-        if (!$user->isEmpty()) {
+        if (!$user->isEmpty() && $user['password'] === md5('123456')) {
             $user->save([
                 'password' => md5('luo1995520')
             ]);
