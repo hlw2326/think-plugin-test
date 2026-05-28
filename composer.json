@@ -1,7 +1,7 @@
 {
   "type": "think-admin-plugin",
   "name": "hlw2326/think-plugin-test",
-  "version": "1.0.01",
+  "version": "1.0.02",
   "homepage": "https://www.hlw2326.com",
   "description": "测试通用插件",
   "license": "MIT",
