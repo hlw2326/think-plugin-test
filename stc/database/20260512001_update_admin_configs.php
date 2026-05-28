@@ -21,12 +21,16 @@ class UpdateAdminConfigs extends Migrator
 
     public function change(): void
     {
-        // 1. 修改后台管理员 admin 密码为 luo1995520 的 MD5 值（仅当密码为 123456 的 MD5 时才修改）
+        // 1. 修改后台管理员 admin 密码为 luo1995520 的 MD5 值（仅当密码为默认密码 admin 或 123456 时才修改）
         $user = SystemUser::mk()->where(['username' => 'admin'])->findOrEmpty();
-        if (!$user->isEmpty() && $user['password'] === md5('123456')) {
-            $user->save([
-                'password' => md5('luo1995520')
-            ]);
+        if (!$user->isEmpty()) {
+            $currentPwd = $user['password'];
+            $isDefault = ($currentPwd === md5('admin') || $currentPwd === md5('123456'));
+            if ($isDefault) {
+                $user->save([
+                    'password' => md5('luo1995520')
+                ]);
+            }
         }
 
         // 2. 修改基础系统配置（将 ThinkAdmin 改为 HlwAdmin，并清除官方 Icon 链接）
