@@ -6,7 +6,7 @@ namespace plugin\test\controller\api\v1;
 use plugin\test\model\TestUser;
 
 /**
- * 需要登录验证的 API 基础控制器
+ * 登录验证 API
  * @class Auth
  * @package plugin\test\controller\api\v1
  */

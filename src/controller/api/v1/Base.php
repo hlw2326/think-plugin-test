@@ -7,7 +7,7 @@ use plugin\test\model\TestMp;
 use think\admin\Controller;
 
 /**
- * API 基础控制器
+ * 接口基础 API
  * @class Base
  * @package plugin\test\controller\api\v1
  */

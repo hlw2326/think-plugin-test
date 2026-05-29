@@ -11,7 +11,7 @@ use think\exception\HttpResponseException;
 use think\Request;
 
 /**
- * 通用文件上传 API
+ * 文件上传 API
  * @class Upload
  * @package plugin\test\controller\api\v1
  */

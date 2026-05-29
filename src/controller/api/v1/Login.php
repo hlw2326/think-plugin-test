@@ -7,7 +7,7 @@ use plugin\test\service\UserService;
 use WeMini\Crypt;
 
 /**
- * 登录接口
+ * 登录服务 API
  * @class Login
  * @package plugin\test\controller\api\v1
  */

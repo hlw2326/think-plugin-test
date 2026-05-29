@@ -10,7 +10,7 @@ use WeChat\Contracts\Tools;
 use WeChat\Receive;
 
 /**
- * 小程序客服消息回调
+ * 客服消息 API
  * @class Custom
  * @package plugin\test\controller\api\v1
  */

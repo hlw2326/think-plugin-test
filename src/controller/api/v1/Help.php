@@ -6,7 +6,7 @@ namespace plugin\test\controller\api\v1;
 use plugin\test\model\TestHelp;
 
 /**
- * 帮助中心 API
+ * 帮助列表 API
  * @class Help
  * @package plugin\test\controller\api\v1
  */

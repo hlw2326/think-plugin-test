@@ -6,7 +6,7 @@ namespace plugin\test\controller\api\v1;
 use plugin\test\service\AdService;
 
 /**
- * 小程序端配置 API
+ * 系统配置 API
  * @class Config
  * @package plugin\test\controller\api\v1
  */

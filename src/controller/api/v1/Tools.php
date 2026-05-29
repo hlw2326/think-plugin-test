@@ -6,7 +6,7 @@ namespace plugin\test\controller\api\v1;
 use plugin\test\model\TestTools;
 
 /**
- * 小程序工具列表 API
+ * 工具列表 API
  * @class Tools
  * @package plugin\test\controller\api\v1
  */
