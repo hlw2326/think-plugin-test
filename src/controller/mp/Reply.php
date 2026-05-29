@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\controller\reply;
+namespace plugin\test\controller\mp;
 
 use plugin\test\model\TestMp;
 use plugin\test\model\TestMpReply;
@@ -11,10 +11,10 @@ use think\admin\service\SystemService;
 
 /**
  * 小程序客服回复规则
- * @class Index
- * @package plugin\test\controller\reply
+ * @class Reply
+ * @package plugin\test\controller\mp
  */
-class Index extends Controller
+class Reply extends Controller
 {
     /**
      * 回复类型
