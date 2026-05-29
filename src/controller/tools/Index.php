@@ -8,7 +8,7 @@ use think\admin\Controller;
 use think\admin\helper\QueryHelper;
 
 /**
- * 工具页跳转小程序
+ * 工具列表
  * @class Index
  * @package plugin\test\controller\tools
  */

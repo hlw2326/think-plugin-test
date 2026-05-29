@@ -10,7 +10,7 @@ use think\admin\helper\QueryHelper;
 use think\admin\service\SystemService;
 
 /**
- * 小程序客服回复规则
+ * 回复规则
  * @class Reply
  * @package plugin\test\controller\mp
  */
@@ -36,7 +36,7 @@ class Reply extends Controller
     ];
 
     /**
-     * 客服回复规则列表
+     * 回复规则
      * @auth true
      * @menu true
      */
@@ -44,7 +44,7 @@ class Reply extends Controller
     {
         $this->appid = (string)($this->get['appid'] ?? '');
         TestMpReply::mQuery()->layTable(function () {
-            $this->title = '客服回复规则';
+            $this->title = '回复规则';
             $this->mps = $this->mps();
         }, function (QueryHelper $query) {
             $query->like('keyword|content#keys')->equal('reply_type#mtype,match_type,status')->dateBetween('create_at');
