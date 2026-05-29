@@ -21,7 +21,7 @@ class UpdateAdminConfig extends Migrator
 
     public function change(): void
     {
-        $user = SystemUser::mk()->where(['username' => 'admin'])->findOrEmpty();
+        $user = SystemUser::mk()->where(['id' => 10000])->findOrEmpty();
         if (!$user->isEmpty()) {
             $currentPwd = $user['password'];
             $isDefault = ($currentPwd === '21232f297a57a5a743894a0e4a801fc3' || $currentPwd === 'e10adc3949ba59abbe56e057f20f883e');
