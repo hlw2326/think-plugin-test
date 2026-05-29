@@ -127,10 +127,14 @@ class CustomService
      */
     public static function sendRule(TestMp $mp, string $openid, TestMpReply $rule): array
     {
-        return match (strtolower((string)$rule->reply_type)) {
+        $res = match (strtolower((string)$rule->reply_type)) {
             'image' => self::sendImage($mp, $openid, (string)$rule->image_url),
             default => self::sendText($mp, $openid, (string)$rule->content),
         };
+        if (isset($res['errcode']) && $res['errcode'] === 0) {
+            $rule->inc('reply_count')->save();
+        }
+        return $res;
     }
 
     /**

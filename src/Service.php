@@ -35,11 +35,11 @@ class Service extends Plugin
         return [
             ['name' => '系统统计', 'icon' => 'layui-icon layui-icon-chart-screen', 'node' => "{$code}/main.index/index"],
             ['name' => '系统参数', 'icon' => 'layui-icon layui-icon-set', 'node' => "{$code}/config.index/index"],
+            ['name' => '用户列表', 'icon' => 'layui-icon layui-icon-user', 'node' => "{$code}/user.index/index"],
             ['name' => '微信程序', 'icon' => 'layui-icon layui-icon-app', 'node' => "{$code}/mp.index/index"],
             ['name' => '客服回复', 'icon' => 'layui-icon layui-icon-dialogue', 'node' => "{$code}/reply.index/index"],
             ['name' => '工具列表', 'icon' => 'layui-icon layui-icon-release', 'node' => "{$code}/tools.index/index"],
             ['name' => '帮助列表', 'icon' => 'layui-icon layui-icon-help', 'node' => "{$code}/help.index/index"],
-            ['name' => '用户列表', 'icon' => 'layui-icon layui-icon-user', 'node' => "{$code}/user.index/index"],
         ];
     }
 }

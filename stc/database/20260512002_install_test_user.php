@@ -9,7 +9,7 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_user（测试-用户列表）
+ * 创建表：test_user（插件-用户列表）
  */
 class InstallTestUser extends Migrator
 {
@@ -23,7 +23,7 @@ class InstallTestUser extends Migrator
         $table = $this->table('test_user', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
-            'comment' => '测试-用户列表',
+            'comment' => '插件-用户列表',
         ]);
         PhinxExtend::upgrade($table, [
             ['token', 'string', ['limit' => 64, 'default' => '', 'null' => true, 'comment' => '登录Token']],
@@ -39,7 +39,6 @@ class InstallTestUser extends Migrator
             ['signature', 'string', ['limit' => 200, 'default' => '', 'null' => true, 'comment' => '个性签名']],
             ['phone', 'string', ['limit' => 20, 'default' => '', 'null' => true, 'comment' => '手机号']],
             ['vip_time', 'biginteger', ['limit' => 20, 'default' => 0, 'null' => true, 'comment' => '会员过期时间戳']],
-            ['vip_no_ad', 'integer', ['limit' => 1, 'default' => 0, 'null' => false, 'comment' => '强制屏蔽展示型广告']],
             ['status', 'integer', ['limit' => 1, 'default' => 1, 'null' => true, 'comment' => '状态']],
             ['deleted', 'integer', ['limit' => 1, 'default' => 0, 'null' => true, 'comment' => '删除状态']],
             ['login_ip', 'string', ['limit' => 50, 'default' => '', 'null' => true, 'comment' => '本次登录IP']],

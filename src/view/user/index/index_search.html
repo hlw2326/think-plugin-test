@@ -31,23 +31,19 @@
         </div>
 
         <div class="layui-form-item layui-inline">
+            <label class="layui-form-label">AppID</label>
+            <div class="layui-input-inline">
+                <input name="appid" value="{$get.appid|default=''}" placeholder="请输入小程序AppID" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-inline">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-inline">
                 <select class="layui-select" name="status" lay-append-to>
                     <option value="">-- 全部 --</option>
                     <option value="1" {eq name='$get.status|default=""' value='1'}selected{/eq}>正常</option>
                     <option value="0" {eq name='$get.status|default=""' value='0'}selected{/eq}>禁用</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="layui-form-item layui-inline">
-            <label class="layui-form-label">VIP去广告</label>
-            <div class="layui-input-inline">
-                <select class="layui-select" name="vip_no_ad" lay-append-to>
-                    <option value="">-- 全部 --</option>
-                    <option value="1" {eq name='$get.vip_no_ad|default=""' value='1'}selected{/eq}>开启</option>
-                    <option value="0" {eq name='$get.vip_no_ad|default=""' value='0'}selected{/eq}>关闭</option>
                 </select>
             </div>
         </div>

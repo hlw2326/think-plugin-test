@@ -28,7 +28,7 @@ class Index extends Controller
         $this->title = '基础配置';
         $this->current = 'index';
         $this->base = [
-            'help_steps' => (string) (sysconf('test.help_steps') ?: "第一步：复制链接\n第二步：打开小程序\n第三步：点击开始使用"),
+            'help_steps' => (string) (sysconf('test.help_steps') ?: "第一步：选择需要使用的功能工具\n第二步：按照提示填写或粘贴相关内容并提交\n第三步：等待处理完成，查看、复制或保存处理结果"),
         ];
         $this->fetch();
     }

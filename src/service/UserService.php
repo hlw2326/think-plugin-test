@@ -18,7 +18,6 @@ class UserService
             'avatar_url' => (string) $user->avatar_url,
             'phone' => (string) $user->phone,
             'vip_time' => intval($user->vip_time),
-            'vip_no_ad' => intval($user->vip_no_ad),
             'gender' => intval($user->gender),
             'birthday' => (string) ($user->birthday ?? ''),
             'region' => (string) ($user->region ?? ''),

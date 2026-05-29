@@ -26,12 +26,13 @@
                 {field: 'sort', title: '排序', width: 100, align: 'center', sort: true, templet: '#SortInputTpl'},
                 {field: 'name', title: '名称', minWidth: 150},
                 {field: 'appid', title: 'AppID', minWidth: 180},
-                {field: 'appsecret', title: 'AppSecret', minWidth: 220},
+                {field: 'appsecret', title: 'AppSecret', minWidth: 220, templet: '#AppSecretTpl'},
                 {field: 'vip_no_ad', title: 'VIP去广告', width: 110, align: 'center', templet: '#VipNoAdTpl'},
+                {title: '广告状态', minWidth: 200, align: 'center', templet: '#AdStatusTpl'},
                 {field: 'custom_reply_enabled', title: '客服消息', width: 120, align: 'center', templet: '#CustomSwitchTpl'},
                 {field: 'status', title: '状态', width: 120, align: 'center', templet: '#StatusSwitchTpl'},
                 {field: 'create_at', title: '创建时间', width: 170, align: 'center', sort: true},
-                {toolbar: '#toolbar', title: '操作', width: 310, align: 'left', fixed: 'right'}
+                {toolbar: '#toolbar', title: '操作', width: 310}
             ]]
         });
 
@@ -63,6 +64,33 @@
 
 <script type="text/html" id="VipNoAdTpl">
     {{-d.vip_no_ad ? '<span class="layui-badge layui-bg-green">开启</span>' : '<span class="layui-badge layui-bg-gray">关闭</span>'}}
+</script>
+
+<script type="text/html" id="AppSecretTpl">
+    {{# if (d.appsecret) { }}
+    {{# if (d.appsecret.length > 12) { }}
+    <span>{{ d.appsecret.substring(0, 6) }}****************{{ d.appsecret.substring(d.appsecret.length - 6) }}</span>
+    {{# } else { }}
+    <span>{{ d.appsecret }}</span>
+    {{# } }}
+    {{# } else { }}
+    <span class="color-desc">-</span>
+    {{# } }}
+</script>
+
+<script type="text/html" id="AdStatusTpl">
+    <div style="display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; align-items: center; width: 100%; height: 100%;">
+        {{# if (d.ad_global_enabled === 0) { }}
+        <span class="layui-badge layui-bg-red ad-status-badge" style="padding: 0 6px !important;">广告已禁用</span>
+        {{# } else { }}
+        <span class="layui-badge ad-status-badge {{ d.ad_enabled_banner ? 'active' : 'inactive' }}">横幅</span>
+        <span class="layui-badge ad-status-badge {{ d.ad_enabled_grid ? 'active' : 'inactive' }}">格子</span>
+        <span class="layui-badge ad-status-badge {{ d.ad_enabled_custom ? 'active' : 'inactive' }}">原生</span>
+        <span class="layui-badge ad-status-badge {{ d.ad_enabled_video ? 'active' : 'inactive' }}">视频</span>
+        <span class="layui-badge ad-status-badge {{ d.ad_enabled_reward ? 'active' : 'inactive' }}">激励</span>
+        <span class="layui-badge ad-status-badge {{ d.ad_enabled_popup ? 'active' : 'inactive' }}">插屏</span>
+        {{# } }}
+    </div>
 </script>
 
 <script type="text/html" id="StatusSwitchTpl">

@@ -9,7 +9,7 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_mp_reply（去水印-小程序客服回复规则）
+ * 创建表：test_mp_reply（插件-回复规则）
  */
 class InstallTestMpReply extends Migrator
 {
@@ -23,7 +23,7 @@ class InstallTestMpReply extends Migrator
         $table = $this->table('test_mp_reply', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
-            'comment' => '去水印-回复规则',
+            'comment' => '插件-回复规则',
         ]);
         PhinxExtend::upgrade($table, [
             ['appid', 'string', ['limit' => 50, 'default' => '', 'null' => false, 'comment' => '小程序AppID']],
@@ -34,6 +34,7 @@ class InstallTestMpReply extends Migrator
             ['content', 'text', ['default' => null, 'null' => true, 'comment' => '回复内容']],
             ['image_url', 'string', ['limit' => 255, 'default' => '', 'null' => true, 'comment' => '回复图片']],
             ['sort', 'biginteger', ['limit' => 20, 'default' => 0, 'null' => true, 'comment' => '排序权重']],
+            ['reply_count', 'biginteger', ['limit' => 20, 'default' => 0, 'null' => true, 'comment' => '回复次数']],
             ['status', 'integer', ['limit' => 1, 'default' => 1, 'null' => true, 'comment' => '状态']],
             ['create_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'null' => false, 'comment' => '创建时间']],
             ['update_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'null' => false, 'comment' => '更新时间']],

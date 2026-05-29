@@ -9,7 +9,7 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_tools（去水印-小程序工具）
+ * 创建表：test_tools（插件-工具列表）
  */
 class InstallTestTools extends Migrator
 {
@@ -23,7 +23,7 @@ class InstallTestTools extends Migrator
         $table = $this->table('test_tools', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
-            'comment' => '去水印-工具',
+            'comment' => '插件-工具列表',
         ]);
         PhinxExtend::upgrade($table, [
             ['title', 'string', ['limit' => 100, 'default' => '', 'null' => true, 'comment' => '标题']],

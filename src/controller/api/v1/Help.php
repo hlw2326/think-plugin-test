@@ -14,7 +14,7 @@ class Help extends Base
 {
     public function list(): void
     {
-        $steps = preg_split('/\r\n|\r|\n/', (string) (sysconf('test.help_steps') ?: "复制短视频分享链接\n回到首页粘贴链接并点击一键解析\n解析完成后复制或保存结果"));
+        $steps = preg_split('/\r\n|\r|\n/', (string) (sysconf('test.help_steps') ?: ""));
         $steps = array_values(array_filter(array_map(static fn(string $step): string => trim($step), $steps ?: [])));
 
         $rows = TestHelp::mk()
@@ -29,6 +29,7 @@ class Help extends Base
 
         foreach ($rows as $row) {
             $faqs[] = [
+                'id' => (int) ($row['id'] ?? 0),
                 'question' => (string) ($row['question'] ?? ''),
                 'answer' => (string) ($row['answer'] ?? ''),
             ];
@@ -38,6 +39,19 @@ class Help extends Base
             'steps' => array_values(array_filter($steps)),
             'faqs' => $faqs,
         ]);
+    }
+
+    /**
+     * 记录帮助点击次数
+     * @return void
+     */
+    public function click(): void
+    {
+        $id = (int)$this->request->post('id', 0);
+        if ($id > 0) {
+            TestHelp::mk()->where(['id' => $id, 'status' => 1])->inc('click_count')->save();
+        }
+        $this->success('操作成功');
     }
 }
 

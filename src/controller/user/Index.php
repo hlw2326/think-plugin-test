@@ -26,7 +26,7 @@ class Index extends Controller
         }, function (QueryHelper $query) {
             $query->equal('id');
             $query->like('nickname')->like('phone')->like('openid');
-            $query->equal('status,vip_no_ad');
+            $query->equal('status,appid');
             $query->dateBetween('create_at');
             $query->where(['deleted' => 0]);
         });

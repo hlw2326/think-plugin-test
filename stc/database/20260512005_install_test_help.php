@@ -9,7 +9,7 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_help（测试-帮助中心）
+ * 创建表：test_help（插件-帮助列表）
  */
 class InstallTestHelp extends Migrator
 {
@@ -23,13 +23,14 @@ class InstallTestHelp extends Migrator
         $table = $this->table('test_help', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
-            'comment' => '测试-帮助',
+            'comment' => '插件-帮助列表',
         ]);
         PhinxExtend::upgrade($table, [
             ['type', 'string', ['limit' => 20, 'default' => 'faq', 'null' => false, 'comment' => '类型：step/faq']],
             ['question', 'string', ['limit' => 255, 'default' => '', 'null' => true, 'comment' => '问题或步骤文案']],
             ['answer', 'text', ['default' => null, 'null' => true, 'comment' => '答案内容']],
             ['sort', 'biginteger', ['limit' => 20, 'default' => 0, 'null' => true, 'comment' => '排序权重']],
+            ['click_count', 'biginteger', ['limit' => 20, 'default' => 0, 'null' => true, 'comment' => '点击次数']],
             ['status', 'integer', ['limit' => 1, 'default' => 1, 'null' => true, 'comment' => '状态']],
             ['create_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'null' => false, 'comment' => '创建时间']],
             ['update_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'null' => false, 'comment' => '更新时间']],
