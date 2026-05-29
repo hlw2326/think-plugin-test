@@ -38,7 +38,7 @@
         <div class="layui-bg-gray padding-15 margin-bottom-15">
             小程序客服消息回调地址：<code>{:request()->domain()}/plugin-test/api.v1.custom/index?appid=小程序AppID</code>
         </div>
-        {include file='mp/reply/index/index_search'}
+        {include file='mp/reply/index_search'}
         <table id="RuleTable" data-url="{:request()->url()}" data-target-search="form.form-search"></table>
     </div>
 </div>
@@ -55,7 +55,8 @@
                 {checkbox: true},
                 {field: 'sort', title: '排序', width: 100, align: 'center', sort: true, templet: '#SortInputTpl'},
                 {field: 'appid', title: '小程序 AppID', minWidth: 180},
-                {field: 'keys', title: '匹配内容', minWidth: 140, templet: '#KeysTpl'},
+                {field: 'match_name', title: '匹配方式', align: 'center', width: 120},
+                {field: 'keys', title: '匹配内容', minWidth: 140},
                 {field: 'type', title: '回复类型', align: 'center', minWidth: 100},
                 {field: 'code', title: '在线预览', align: 'center', minWidth: 100, templet: '#PreViewTpl'},
                 {field: 'reply_count', title: '回复次数', align: 'center', width: 120, sort: true},
@@ -77,10 +78,6 @@
             }, false);
         });
     });
-</script>
-
-<script type="text/html" id="KeysTpl">
-    <span class="layui-badge layui-bg-gray color-text margin-right-5">{{d.match_name}}</span>{{d.keys}}
 </script>
 
 <script type="text/html" id="PreViewTpl">
