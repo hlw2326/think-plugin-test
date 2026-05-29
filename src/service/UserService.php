@@ -32,12 +32,13 @@ class UserService
         array $profile,
         array $device,
         string $ip,
-        string $inviteUid = ''
+        string $inviteUid = '',
+        string $appid = ''
     ): TestUser {
         $user = TestUser::mk()->where('openid', $openid)->findOrEmpty();
 
         if ($user->isEmpty()) {
-            return static::register($openid, $unionid, $profile, $device, $ip, $inviteUid);
+            return static::register($openid, $unionid, $profile, $device, $ip, $inviteUid, $appid);
         }
 
         return static::refresh($user, $unionid, $device, $ip);
@@ -49,7 +50,8 @@ class UserService
         array $profile,
         array $device,
         string $ip,
-        string $inviteUid
+        string $inviteUid,
+        string $appid
     ): TestUser {
         $pid = 0;
         $inviteUserId = intval($inviteUid);
@@ -63,6 +65,7 @@ class UserService
         $user = TestUser::mk();
         $user->save([
             'openid' => $openid,
+            'appid' => $appid,
             'pid' => $pid,
             'unionid' => $unionid,
             'nickname' => $profile['nickname'] ?? '',

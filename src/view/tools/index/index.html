@@ -1,4 +1,4 @@
-﻿{extend name="table"}
+{extend name="table"}
 
 {block name="button"}
 <!--{if auth("add")}-->
@@ -29,6 +29,7 @@
                 {field: 'desc', title: '描述', minWidth: 220},
                 {field: 'appid', title: '跳转 AppID', minWidth: 180},
                 {field: 'path', title: '路径', minWidth: 180},
+                {field: 'click_count', title: '点击次数', width: 120, align: 'center', sort: true},
                 {field: 'status', title: '状态', width: 120, align: 'center', templet: '#StatusSwitchTpl'},
                 {field: 'create_at', title: '创建时间', width: 170, align: 'center', sort: true},
                 {toolbar: '#toolbar', title: '操作', width: 170, align: 'center', fixed: 'right'}

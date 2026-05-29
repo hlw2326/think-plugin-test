@@ -51,7 +51,8 @@ class Login extends Base
                 profile: ['nickname' => $data['nickname'], 'avatar_url' => $data['avatar_url']],
                 device: $this->device,
                 ip: $this->request->ip(),
-                inviteUid: (string) ($data['invite_uid'] ?: $data['uid'])
+                inviteUid: (string) ($data['invite_uid'] ?: $data['uid']),
+                appid: $this->mp->appid ?? ''
             );
         } catch (\RuntimeException $exception) {
             $this->error($exception->getMessage());

@@ -28,6 +28,7 @@ class InstallTestUser extends Migrator
         PhinxExtend::upgrade($table, [
             ['token', 'string', ['limit' => 64, 'default' => '', 'null' => true, 'comment' => '登录Token']],
             ['openid', 'string', ['limit' => 64, 'default' => '', 'null' => true, 'comment' => '微信OpenID']],
+            ['appid', 'string', ['limit' => 64, 'default' => '', 'null' => true, 'comment' => '小程序AppID']],
             ['pid', 'biginteger', ['limit' => 20, 'default' => 0, 'null' => true, 'comment' => '推荐人用户表ID']],
             ['unionid', 'string', ['limit' => 64, 'default' => '', 'null' => true, 'comment' => '微信UnionID']],
             ['nickname', 'string', ['limit' => 100, 'default' => '', 'null' => true, 'comment' => '用户昵称']],
@@ -56,7 +57,7 @@ class InstallTestUser extends Migrator
             ['create_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'null' => false, 'comment' => '创建时间']],
             ['update_at', 'timestamp', ['default' => 'CURRENT_TIMESTAMP', 'null' => false, 'comment' => '更新时间']],
         ], [
-            'token', 'openid', 'pid', 'unionid', 'phone', 'status', 'deleted', 'create_at',
+            'token', 'openid', 'appid', 'pid', 'unionid', 'phone', 'status', 'deleted', 'create_at',
         ], true);
 
         $this->execute('ALTER TABLE `test_user` AUTO_INCREMENT = 10000');
