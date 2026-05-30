@@ -37,7 +37,7 @@ class UpdateAdminConfig extends Migrator
             'app_name'  => 'HlwAdmin',
             'site_name' => 'HlwAdmin',
             'site_copy' => '©版权所有 2014-' . date('Y') . ' HlwAdmin',
-            'site_icon' => '', // 官方链接删除，设为空
+            //'site_icon' => '', // 官方链接删除，设为空
         ];
 
         foreach ($configs as $name => $value) {
