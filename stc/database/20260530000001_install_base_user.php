@@ -9,18 +9,18 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_user（插件-用户列表）
+ * 创建表：base_user（插件-用户列表）
  */
-class InstallTestUser extends Migrator
+class InstallBaseUser extends Migrator
 {
     public function getName(): string
     {
-        return 'InstallTestUser';
+        return 'InstallBaseUser';
     }
 
     public function change(): void
     {
-        $table = $this->table('test_user', [
+        $table = $this->table('base_user', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
             'comment' => '插件-用户列表',
@@ -59,6 +59,6 @@ class InstallTestUser extends Migrator
             'token', 'openid', 'appid', 'pid', 'unionid', 'phone', 'status', 'deleted', 'create_at',
         ], true);
 
-        $this->execute('ALTER TABLE `test_user` AUTO_INCREMENT = 10000');
+        $this->execute('ALTER TABLE `base_user` AUTO_INCREMENT = 10000');
     }
 }

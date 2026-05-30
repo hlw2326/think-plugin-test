@@ -1,5 +1,5 @@
 <style>
-    .test-reply-form {
+    .base-reply-form {
         width: 930px;
         height: 660px;
         overflow: hidden;
@@ -31,12 +31,12 @@
         margin-left: 112px;
     }
 
-    .test-customer-url {
+    .base-customer-url {
         margin-top: 6px;
     }
 </style>
 
-<div class="nowrap padding-10 test-reply-form">
+<div class="nowrap padding-10 base-reply-form">
     <div class="mobile-preview inline-block">
         <div class="mobile-header">小程序客服</div>
         <div class="mobile-body" data-iframe-box></div>
@@ -55,7 +55,7 @@
                                 <option value="{$mp.appid}" {if isset($vo.appid) and $vo.appid eq $mp.appid}selected{/if}>{$mp.name|default='未命名'} - {$mp.appid}</option>
                                 {/foreach}
                             </select>
-                            <div class="relative test-customer-url" data-template="{$customerUrl|default=''}">
+                            <div class="relative base-customer-url" data-template="{$customerUrl|default=''}">
                                 <input class="layui-input layui-bg-gray padding-right-30" readonly data-customer-url placeholder="消息回调地址">
                                 <a data-copy="" data-tips-text="复制回调地址" class="input-right-icon layui-icon layui-icon-release"></a>
                             </div>
@@ -134,9 +134,9 @@
 <script>
     $(function () {
         function syncCustomerUrl(appid) {
-            var $form = $('.test-reply-form form');
+            var $form = $('.base-reply-form form');
             appid = appid === undefined ? $form.find('[name="appid"]').val() : appid;
-            var $box = $form.find('.test-customer-url');
+            var $box = $form.find('.base-customer-url');
             var $target = $box.find('[data-customer-url]');
             var $copy = $box.find('[data-copy]');
             var template = $box.data('template') || '';
@@ -154,7 +154,7 @@
         layui.form.on('select(ReplyAppid)', function (data) {
             syncCustomerUrl(data.value);
         });
-        $('body').off('change', '.test-reply-form [name="appid"]').on('change', '.test-reply-form [name="appid"]', function () {
+        $('body').off('change', '.base-reply-form [name="appid"]').on('change', '.base-reply-form [name="appid"]', function () {
             syncCustomerUrl(this.value);
         });
 

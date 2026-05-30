@@ -9,18 +9,18 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_mp（插件-小程序）
+ * 创建表：base_mp（插件-小程序）
  */
-class InstallTestMp extends Migrator
+class InstallBaseMp extends Migrator
 {
     public function getName(): string
     {
-        return 'InstallTestMp';
+        return 'InstallBaseMp';
     }
 
     public function change(): void
     {
-        $table = $this->table('test_mp', [
+        $table = $this->table('base_mp', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
             'comment' => '插件-小程序',
@@ -57,8 +57,8 @@ class InstallTestMp extends Migrator
             'appid', 'status',
         ]);
 
-        if (!$this->fetchRow("SELECT id FROM test_mp LIMIT 1")) {
-            $this->table('test_mp')->insert([
+        if (!$this->fetchRow("SELECT id FROM base_mp LIMIT 1")) {
+            $this->table('base_mp')->insert([
                 [
                     'name' => '测试',
                     'appid' => 'wx0c1972421f064dde',

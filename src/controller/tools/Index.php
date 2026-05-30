@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\controller\tools;
+namespace plugin\base\controller\tools;
 
-use plugin\test\model\TestTools;
+use plugin\base\model\BaseTools;
 use think\admin\Controller;
 use think\admin\helper\QueryHelper;
 
 /**
  * 工具列表
  * @class Index
- * @package plugin\test\controller\tools
+ * @package plugin\base\controller\tools
  */
 class Index extends Controller
 {
@@ -21,7 +21,7 @@ class Index extends Controller
      */
     public function index(): void
     {
-        TestTools::mQuery()->layTable(function () {
+        BaseTools::mQuery()->layTable(function () {
             $this->title = '工具列表';
         }, function (QueryHelper $query) {
             $query->like('title')->like('desc')->like('appid');
@@ -36,7 +36,7 @@ class Index extends Controller
     public function add(): void
     {
         $this->_applyFormToken();
-        TestTools::mForm('form');
+        BaseTools::mForm('form');
     }
 
     /**
@@ -46,7 +46,7 @@ class Index extends Controller
     public function edit(): void
     {
         $this->_applyFormToken();
-        TestTools::mForm('form');
+        BaseTools::mForm('form');
     }
 
     /**
@@ -55,7 +55,7 @@ class Index extends Controller
      */
     public function state(): void
     {
-        TestTools::mSave($this->_vali([
+        BaseTools::mSave($this->_vali([
             'status.in:0,1' => '状态值范围异常！',
             'status.require' => '状态值不能为空！',
         ]));
@@ -67,7 +67,7 @@ class Index extends Controller
      */
     public function remove(): void
     {
-        TestTools::mDelete();
+        BaseTools::mDelete();
     }
 }
 

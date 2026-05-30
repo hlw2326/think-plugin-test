@@ -42,7 +42,7 @@
             <div class="layui-row layui-col-space15 margin-top-15">
                 <div class="layui-col-xs12 layui-col-md6">
                     <span class="help-label"><b>客服回调地址</b>Customer URL</span>
-                    <div class="relative block test-customer-url" data-template="{$customerUrl|default=''}">
+                    <div class="relative block base-customer-url" data-template="{$customerUrl|default=''}">
                         <input class="layui-input layui-bg-gray padding-right-30" readonly data-customer-url placeholder="保存 AppID 后自动生成">
                         <a data-copy="" data-tips-text="复制回调地址" class="input-right-icon layui-icon layui-icon-release"></a>
                     </div>
@@ -87,7 +87,7 @@
         function syncCustomerUrl() {
             var $form = $('[data-table-id="AppTable"]');
             var appid = $form.find('[name="appid"]').val() || '小程序AppID';
-            var $box = $form.find('.test-customer-url');
+            var $box = $form.find('.base-customer-url');
             var template = $box.data('template') || '';
             var url = template.replace('小程序AppID', appid);
             $box.find('[data-customer-url]').val(url);

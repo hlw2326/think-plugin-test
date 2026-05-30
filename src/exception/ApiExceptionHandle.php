@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace plugin\test\exception;
+namespace plugin\base\exception;
 
 use think\exception\Handle;
 use think\exception\HttpResponseException;

@@ -9,18 +9,18 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_help（插件-帮助列表）
+ * 创建表：base_help（插件-帮助列表）
  */
-class InstallTestHelp extends Migrator
+class InstallBaseHelp extends Migrator
 {
     public function getName(): string
     {
-        return 'InstallTestHelp';
+        return 'InstallBaseHelp';
     }
 
     public function change(): void
     {
-        $table = $this->table('test_help', [
+        $table = $this->table('base_help', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
             'comment' => '插件-帮助列表',
@@ -38,8 +38,8 @@ class InstallTestHelp extends Migrator
             'type', 'status', 'sort',
         ]);
 
-        if (!$this->fetchRow("SELECT id FROM test_help LIMIT 1")) {
-            $this->table('test_help')->insert([
+        if (!$this->fetchRow("SELECT id FROM base_help LIMIT 1")) {
+            $this->table('base_help')->insert([
                 [
                     'type' => 'faq',
                     'question' => '使用时遇到问题怎么办？',

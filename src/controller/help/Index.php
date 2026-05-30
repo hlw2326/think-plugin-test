@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\controller\help;
+namespace plugin\base\controller\help;
 
-use plugin\test\model\TestHelp;
+use plugin\base\model\BaseHelp;
 use think\admin\Controller;
 use think\admin\helper\QueryHelper;
 
 /**
  * 帮助列表
  * @class Index
- * @package plugin\test\controller\help
+ * @package plugin\base\controller\help
  */
 class Index extends Controller
 {
@@ -21,7 +21,7 @@ class Index extends Controller
      */
     public function index(): void
     {
-        TestHelp::mQuery()->layTable(function () {
+        BaseHelp::mQuery()->layTable(function () {
             $this->title = '帮助列表';
         }, function (QueryHelper $query) {
             $query->like('question')->like('answer');
@@ -36,7 +36,7 @@ class Index extends Controller
     public function add(): void
     {
         $this->_applyFormToken();
-        TestHelp::mForm('form');
+        BaseHelp::mForm('form');
     }
 
     /**
@@ -46,7 +46,7 @@ class Index extends Controller
     public function edit(): void
     {
         $this->_applyFormToken();
-        TestHelp::mForm('form');
+        BaseHelp::mForm('form');
     }
 
     /**
@@ -55,7 +55,7 @@ class Index extends Controller
      */
     public function state(): void
     {
-        TestHelp::mSave($this->_vali([
+        BaseHelp::mSave($this->_vali([
             'status.in:0,1' => '状态值范围异常！',
             'status.require' => '状态值不能为空！',
         ]));
@@ -67,7 +67,7 @@ class Index extends Controller
      */
     public function remove(): void
     {
-        TestHelp::mDelete();
+        BaseHelp::mDelete();
     }
 }
 

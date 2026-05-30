@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\controller\mp;
+namespace plugin\base\controller\mp;
 
-use plugin\test\model\TestMp;
+use plugin\base\model\BaseMp;
 use think\admin\Controller;
 use think\admin\helper\QueryHelper;
 
 /**
  * 小程序管理
  * @class Index
- * @package plugin\test\controller\mp
+ * @package plugin\base\controller\mp
  */
 class Index extends Controller
 {
@@ -20,7 +20,7 @@ class Index extends Controller
      */
     protected function customerUrl(): string
     {
-        return sprintf('%s/plugin-test/api.v1.custom/index?appid=小程序AppID', $this->request->domain());
+        return sprintf('%s/plugin-base/api.v1.custom/index?appid=小程序AppID', $this->request->domain());
     }
 
     /**
@@ -30,7 +30,7 @@ class Index extends Controller
      */
     public function index(): void
     {
-        TestMp::mQuery()->layTable(function () {
+        BaseMp::mQuery()->layTable(function () {
             $this->title = '小程序列表';
         }, function (QueryHelper $query) {
             $query->like('name')->like('appid');
@@ -45,7 +45,7 @@ class Index extends Controller
     public function add(): void
     {
         $this->_applyFormToken();
-        TestMp::mForm('form');
+        BaseMp::mForm('form');
     }
 
     /**
@@ -55,7 +55,7 @@ class Index extends Controller
     public function edit(): void
     {
         $this->_applyFormToken();
-        TestMp::mForm('form');
+        BaseMp::mForm('form');
     }
 
     /**
@@ -78,7 +78,7 @@ class Index extends Controller
      */
     public function state(): void
     {
-        TestMp::mSave($this->_vali([
+        BaseMp::mSave($this->_vali([
             'status.in:0,1' => '状态值范围异常！',
             'status.require' => '状态值不能为空！',
         ]));
@@ -90,7 +90,7 @@ class Index extends Controller
      */
     public function custom(): void
     {
-        TestMp::mSave($this->_vali([
+        BaseMp::mSave($this->_vali([
             'custom_reply_enabled.in:0,1' => '客服消息状态范围异常！',
             'custom_reply_enabled.require' => '客服消息状态不能为空！',
         ]));
@@ -102,7 +102,7 @@ class Index extends Controller
      */
     public function remove(): void
     {
-        TestMp::mDelete();
+        BaseMp::mDelete();
     }
 
     /**
@@ -112,7 +112,7 @@ class Index extends Controller
     public function pages(): void
     {
         $this->_applyFormToken();
-        TestMp::mForm();
+        BaseMp::mForm();
     }
 
     /**
@@ -122,7 +122,7 @@ class Index extends Controller
     public function ad(): void
     {
         $this->_applyFormToken();
-        TestMp::mForm();
+        BaseMp::mForm();
     }
 }
 

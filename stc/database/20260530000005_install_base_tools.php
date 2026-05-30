@@ -9,18 +9,18 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_tools（插件-工具列表）
+ * 创建表：base_tools（插件-工具列表）
  */
-class InstallTestTools extends Migrator
+class InstallBaseTools extends Migrator
 {
     public function getName(): string
     {
-        return 'InstallTestTools';
+        return 'InstallBaseTools';
     }
 
     public function change(): void
     {
-        $table = $this->table('test_tools', [
+        $table = $this->table('base_tools', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
             'comment' => '插件-工具列表',
@@ -40,8 +40,8 @@ class InstallTestTools extends Migrator
             'appid', 'status', 'sort', 'click_count',
         ]);
 
-        if (!$this->fetchRow("SELECT id FROM test_tools LIMIT 1")) {
-            $this->table('test_tools')->insert([
+        if (!$this->fetchRow("SELECT id FROM base_tools LIMIT 1")) {
+            $this->table('base_tools')->insert([
                 [
                     'title' => '图片处理工具',
                     'desc' => '更多图片压缩、裁剪和格式转换工具',

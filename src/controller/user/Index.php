@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\controller\user;
+namespace plugin\base\controller\user;
 
-use plugin\test\model\TestUser;
+use plugin\base\model\BaseUser;
 use think\admin\Controller;
 use think\admin\helper\QueryHelper;
 
 /**
  * 用户列表
  * @class Index
- * @package plugin\test\controller\user
+ * @package plugin\base\controller\user
  */
 class Index extends Controller
 {
@@ -21,7 +21,7 @@ class Index extends Controller
      */
     public function index(): void
     {
-        TestUser::mQuery()->layTable(function () {
+        BaseUser::mQuery()->layTable(function () {
             $this->title = '用户列表';
         }, function (QueryHelper $query) {
             $query->equal('id');
@@ -38,7 +38,7 @@ class Index extends Controller
      */
     public function state(): void
     {
-        TestUser::mSave($this->_vali([
+        BaseUser::mSave($this->_vali([
             'status.in:0,1' => '状态值范围异常！',
             'status.require' => '状态值不能为空！',
         ]));
@@ -55,7 +55,7 @@ class Index extends Controller
             $this->error('用户 ID 不能为空！');
         }
 
-        TestUser::mk()->where(['id' => $id, 'deleted' => 0])->update(['token' => '']);
+        BaseUser::mk()->where(['id' => $id, 'deleted' => 0])->update(['token' => '']);
         $this->success('已退出登录！');
     }
 }

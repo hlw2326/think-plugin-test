@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\service;
+namespace plugin\base\service;
 
-use plugin\test\model\TestMp;
-use plugin\test\model\TestMpReply;
+use plugin\base\model\BaseMp;
+use plugin\base\model\BaseMpReply;
 use think\admin\Storage;
 use WeChat\Contracts\Tools;
 use WeMini\Custom;
@@ -13,17 +13,17 @@ use WeMini\Media;
 /**
  * 小程序客服消息服务
  * @class CustomService
- * @package plugin\test\service
+ * @package plugin\base\service
  */
 class CustomService
 {
     /**
      * 匹配客服回复规则
-     * @param TestMp $mp
+     * @param BaseMp $mp
      * @param array $message
-     * @return null|TestMpReply
+     * @return null|BaseMpReply
      */
-    public static function match(TestMp $mp, array $message): ?TestMpReply
+    public static function match(BaseMp $mp, array $message): ?BaseMpReply
     {
         $msgType = strtolower((string)($message['MsgType'] ?? $message['msgtype'] ?? ''));
         $content = trim((string)($message['Content'] ?? $message['content'] ?? ''));
@@ -43,12 +43,12 @@ class CustomService
      * @param string $appid
      * @param string $msgType
      * @param string $target
-     * @return null|TestMpReply
+     * @return null|BaseMpReply
      */
-    private static function matchByAppid(string $appid, string $msgType, string $target): ?TestMpReply
+    private static function matchByAppid(string $appid, string $msgType, string $target): ?BaseMpReply
     {
         $default = null;
-        foreach (TestMpReply::mk()->where(['appid' => $appid, 'status' => 1])->order('sort desc,id asc')->cursor() as $rule) {
+        foreach (BaseMpReply::mk()->where(['appid' => $appid, 'status' => 1])->order('sort desc,id asc')->cursor() as $rule) {
             $ruleMsgType = strtolower((string)$rule->msg_type);
             if ($ruleMsgType !== 'all' && $ruleMsgType !== $msgType) {
                 continue;
@@ -75,12 +75,12 @@ class CustomService
 
     /**
      * 发送文本客服消息
-     * @param TestMp $mp
+     * @param BaseMp $mp
      * @param string $openid
      * @param string $content
      * @return array
      */
-    public static function sendText(TestMp $mp, string $openid, string $content): array
+    public static function sendText(BaseMp $mp, string $openid, string $content): array
     {
         if ($openid === '' || trim($content) === '') {
             return ['errcode' => 0, 'errmsg' => 'empty message'];
@@ -95,12 +95,12 @@ class CustomService
 
     /**
      * 发送图片客服消息
-     * @param TestMp $mp
+     * @param BaseMp $mp
      * @param string $openid
      * @param string $imageUrl
      * @return array
      */
-    public static function sendImage(TestMp $mp, string $openid, string $imageUrl): array
+    public static function sendImage(BaseMp $mp, string $openid, string $imageUrl): array
     {
         if ($openid === '' || trim($imageUrl) === '') {
             return ['errcode' => 0, 'errmsg' => 'empty image'];
@@ -120,12 +120,12 @@ class CustomService
 
     /**
      * 按规则发送客服消息
-     * @param TestMp $mp
+     * @param BaseMp $mp
      * @param string $openid
-     * @param TestMpReply $rule
+     * @param BaseMpReply $rule
      * @return array
      */
-    public static function sendRule(TestMp $mp, string $openid, TestMpReply $rule): array
+    public static function sendRule(BaseMp $mp, string $openid, BaseMpReply $rule): array
     {
         $res = match (strtolower((string)$rule->reply_type)) {
             'image' => self::sendImage($mp, $openid, (string)$rule->image_url),
@@ -139,11 +139,11 @@ class CustomService
 
     /**
      * 发送小程序客服消息
-     * @param TestMp $mp
+     * @param BaseMp $mp
      * @param array $payload
      * @return array
      */
-    private static function send(TestMp $mp, array $payload): array
+    private static function send(BaseMp $mp, array $payload): array
     {
         $accessToken = Custom::instance(self::config($mp))->getAccessToken();
         $url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token={$accessToken}";
@@ -170,10 +170,10 @@ class CustomService
 
     /**
      * 小程序微信库配置
-     * @param TestMp $mp
+     * @param BaseMp $mp
      * @return array
      */
-    public static function config(TestMp $mp): array
+    public static function config(BaseMp $mp): array
     {
         return [
             'appid' => (string)$mp->appid,

@@ -1,10 +1,10 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\controller\mp;
+namespace plugin\base\controller\mp;
 
-use plugin\test\model\TestMp;
-use plugin\test\model\TestMpReply;
+use plugin\base\model\BaseMp;
+use plugin\base\model\BaseMpReply;
 use think\admin\Controller;
 use think\admin\helper\QueryHelper;
 use think\admin\service\SystemService;
@@ -12,7 +12,7 @@ use think\admin\service\SystemService;
 /**
  * 回复规则
  * @class Reply
- * @package plugin\test\controller\mp
+ * @package plugin\base\controller\mp
  */
 class Reply extends Controller
 {
@@ -43,7 +43,7 @@ class Reply extends Controller
     public function index(): void
     {
         $this->appid = (string)($this->get['appid'] ?? '');
-        TestMpReply::mQuery()->layTable(function () {
+        BaseMpReply::mQuery()->layTable(function () {
             $this->title = '回复规则';
             $this->mps = $this->mps();
         }, function (QueryHelper $query) {
@@ -73,7 +73,7 @@ class Reply extends Controller
      */
     public function sort(): void
     {
-        TestMpReply::mSave($this->_vali([
+        BaseMpReply::mSave($this->_vali([
             'sort.require' => '排序值不能为空！',
             'sort.number'  => '排序值格式异常！',
         ]));
@@ -88,11 +88,11 @@ class Reply extends Controller
         $this->_applyFormToken();
         $appid = (string)($this->get['appid'] ?? '');
         $data = ['appid' => $appid, 'match_type' => 'default', 'msg_type' => 'all', 'status' => 1, 'sort' => 0];
-        $vo = TestMpReply::mk()->where(['appid' => $appid, 'match_type' => 'default'])->findOrEmpty()->toArray();
+        $vo = BaseMpReply::mk()->where(['appid' => $appid, 'match_type' => 'default'])->findOrEmpty()->toArray();
         if (!empty($vo)) {
             $data = array_merge($data, $vo);
         }
-        TestMpReply::mForm('form', 'id', [], $data);
+        BaseMpReply::mForm('form', 'id', [], $data);
     }
 
     /**
@@ -101,7 +101,7 @@ class Reply extends Controller
      */
     protected function customerUrl(): string
     {
-        return sprintf('%s/plugin-test/api.v1.custom/index?appid=小程序AppID', $this->request->domain());
+        return sprintf('%s/plugin-base/api.v1.custom/index?appid=小程序AppID', $this->request->domain());
     }
 
     /**
@@ -110,7 +110,7 @@ class Reply extends Controller
      */
     protected function mps(): array
     {
-        return TestMp::mk()->where(['status' => 1])->order('sort desc,id asc')->select()->toArray();
+        return BaseMp::mk()->where(['status' => 1])->order('sort desc,id asc')->select()->toArray();
     }
 
     /**
@@ -135,7 +135,7 @@ class Reply extends Controller
         $data['msg_type'] = 'all';
         if (($data['match_type'] ?? '') === 'default') {
             $data['keyword'] = '';
-            $query = TestMpReply::mk()->where(['appid' => $data['appid'] ?? '', 'match_type' => 'default']);
+            $query = BaseMpReply::mk()->where(['appid' => $data['appid'] ?? '', 'match_type' => 'default']);
             if (!empty($data['id'])) {
                 $query->where('id', '<>', $data['id']);
             }
@@ -166,7 +166,7 @@ class Reply extends Controller
     public function add(): void
     {
         $this->_applyFormToken();
-        TestMpReply::mForm('form');
+        BaseMpReply::mForm('form');
     }
 
     /**
@@ -176,7 +176,7 @@ class Reply extends Controller
     public function edit(): void
     {
         $this->_applyFormToken();
-        TestMpReply::mForm('form');
+        BaseMpReply::mForm('form');
     }
 
     /**
@@ -201,7 +201,7 @@ class Reply extends Controller
      */
     public function state(): void
     {
-        TestMpReply::mSave($this->_vali([
+        BaseMpReply::mSave($this->_vali([
             'status.in:0,1' => '状态值范围异常！',
             'status.require' => '状态值不能为空！',
         ]));
@@ -213,7 +213,7 @@ class Reply extends Controller
      */
     public function remove(): void
     {
-        TestMpReply::mDelete();
+        BaseMpReply::mDelete();
     }
 }
 

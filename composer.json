@@ -1,6 +1,6 @@
 {
   "type": "think-admin-plugin",
-  "name": "hlw2326/think-plugin-test",
+  "name": "hlw2326/think-plugin-base",
   "version": "1.0.13",
   "homepage": "https://www.hlw2326.com",
   "description": "测试通用插件",
@@ -20,13 +20,13 @@
       "./src/helper.php"
     ],
     "psr-4": {
-      "plugin\\test\\": "src"
+      "plugin\\base\\": "src"
     }
   },
   "extra": {
     "think": {
       "services": [
-        "plugin\\test\\Service"
+        "plugin\\base\\Service"
       ]
     },
     "plugin": {

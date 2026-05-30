@@ -9,18 +9,18 @@ use think\migration\Migrator;
 @ini_set('memory_limit', '-1');
 
 /**
- * 创建表：test_mp_reply（插件-回复规则）
+ * 创建表：base_mp_reply（插件-回复规则）
  */
-class InstallTestMpReply extends Migrator
+class InstallBaseMpReply extends Migrator
 {
     public function getName(): string
     {
-        return 'InstallTestMpReply';
+        return 'InstallBaseMpReply';
     }
 
     public function change(): void
     {
-        $table = $this->table('test_mp_reply', [
+        $table = $this->table('base_mp_reply', [
             'engine' => 'InnoDB',
             'collation' => 'utf8mb4_general_ci',
             'comment' => '插件-回复规则',

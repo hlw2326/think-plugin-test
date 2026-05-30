@@ -1,17 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\service;
+namespace plugin\base\service;
 
-use plugin\test\model\TestMp;
-use plugin\test\model\TestUser;
+use plugin\base\model\BaseMp;
+use plugin\base\model\BaseUser;
 
 /**
  * 广告服务
  */
 class AdService
 {
-    public static function mpConfig(TestMp $mp): array
+    public static function mpConfig(BaseMp $mp): array
     {
         $globalOn = self::enabled($mp, 'ad_global_enabled');
 
@@ -45,7 +45,7 @@ class AdService
 
     public static function grant(int $userId): array
     {
-        $user = TestUser::mk()->where('id', $userId)->find();
+        $user = BaseUser::mk()->where('id', $userId)->find();
 
         if (empty($user)) {
             return ['state' => false, 'msg' => '发放失败'];
@@ -61,7 +61,7 @@ class AdService
         ];
     }
 
-    private static function enabled(TestMp $mp, string $field): bool
+    private static function enabled(BaseMp $mp, string $field): bool
     {
         $value = $mp->{$field} ?? 1;
         if ($value === '' || $value === null) {

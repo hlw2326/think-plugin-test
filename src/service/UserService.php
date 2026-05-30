@@ -1,16 +1,16 @@
 <?php
 declare(strict_types=1);
 
-namespace plugin\test\service;
+namespace plugin\base\service;
 
-use plugin\test\model\TestUser;
+use plugin\base\model\BaseUser;
 
 /**
  * 用户服务
  */
 class UserService
 {
-    public static function profile(TestUser $user): array
+    public static function profile(BaseUser $user): array
     {
         return [
             'id' => intval($user->id),
@@ -33,8 +33,8 @@ class UserService
         string $ip,
         string $inviteUid = '',
         string $appid = ''
-    ): TestUser {
-        $user = TestUser::mk()->where('openid', $openid)->findOrEmpty();
+    ): BaseUser {
+        $user = BaseUser::mk()->where('openid', $openid)->findOrEmpty();
 
         if ($user->isEmpty()) {
             return static::register($openid, $unionid, $profile, $device, $ip, $inviteUid, $appid);
@@ -51,17 +51,17 @@ class UserService
         string $ip,
         string $inviteUid,
         string $appid
-    ): TestUser {
+    ): BaseUser {
         $pid = 0;
         $inviteUserId = intval($inviteUid);
         if ($inviteUserId > 0) {
-            $inviter = TestUser::mk()->where(['id' => $inviteUserId, 'deleted' => 0, 'status' => 1])->findOrEmpty();
+            $inviter = BaseUser::mk()->where(['id' => $inviteUserId, 'deleted' => 0, 'status' => 1])->findOrEmpty();
             if ($inviter->isExists()) {
                 $pid = intval($inviter->id);
             }
         }
 
-        $user = TestUser::mk();
+        $user = BaseUser::mk();
         $user->save([
             'openid' => $openid,
             'appid' => $appid,
@@ -84,7 +84,7 @@ class UserService
         return $user;
     }
 
-    private static function refresh(TestUser $user, string $unionid, array $device, string $ip): TestUser
+    private static function refresh(BaseUser $user, string $unionid, array $device, string $ip): BaseUser
     {
         if (intval($user->status) !== 1) {
             throw new \RuntimeException('账号已被禁用');

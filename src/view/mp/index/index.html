@@ -22,8 +22,8 @@
             sort: {field: 'sort desc,id', type: 'asc'},
             cols: [[
                 {checkbox: true, fixed: true},
-                {field: 'id', title: 'ID', width: 70, align: 'center', sort: true},
                 {field: 'sort', title: '排序', width: 100, align: 'center', sort: true, templet: '#SortInputTpl'},
+                {field: 'logo', title: 'Logo', width: 70, align: 'center', templet: '<div>{{-$.layTable.showImage(d.logo)}}</div>'},
                 {field: 'name', title: '名称', minWidth: 150},
                 {field: 'appid', title: 'AppID', minWidth: 180},
                 {field: 'appsecret', title: 'AppSecret', minWidth: 220, templet: '#AppSecretTpl'},

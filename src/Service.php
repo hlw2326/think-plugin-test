@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace plugin\test;
+namespace plugin\base;
 
-use plugin\test\exception\ApiExceptionHandle;
+use plugin\base\exception\ApiExceptionHandle;
 use think\admin\Plugin;
 use think\exception\Handle;
 
@@ -15,7 +15,7 @@ class Service extends Plugin
 {
     protected $appName = '测试插件';
 
-    protected $package = 'hlw2326/think-plugin-test';
+    protected $package = 'hlw2326/think-plugin-base';
 
     public function register(): void
     {
